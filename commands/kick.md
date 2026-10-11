@@ -1,20 +1,21 @@
 ---
-description: Post-session retrospective — harvest this session's lessons into durable doctrine
+description: Post-session kick — bring this session's lessons topside as durable doctrine
 ---
 
-Run a good-bad-ugly retrospective on the current session. The goal is not a
+Run an inception retrospective on the current session. The goal is not a
 summary — it is to harvest anything that should change how future sessions
-run, and put it where future sessions will actually see it.
+run, and put it where future sessions will actually see it. Nothing learned
+down there counts until it comes topside.
 
-1. **Sweep the session for scars.** Incidents (data touched that shouldn't
+1. **Sweep the levels for scars.** Incidents (data touched that shouldn't
    have been, money spent unexpectedly, a gate that passed while the product
    was broken), corrections the user had to make twice, specs that got
-   superseded mid-flight, agents that went quiet, verification that turned
-   out vacuous.
+   superseded mid-flight, agents lost in limbo, totems that turned out to be
+   vacuous.
 
-2. **For each scar, ask: which layer failed?** A brief missing a fence or a
+2. **For each scar, ask: which level failed?** A brief missing a fence or a
    fixture rule → the prompt template needs the rule. A verification gap →
-   the verify step needs the check. A user-facing surprise → the loop needs a
+   the totem step needs the check. A user-facing surprise → the loop needs a
    communication step. If it couldn't have been prevented by better doctrine,
    say so — not everything is a process failure.
 

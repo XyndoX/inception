@@ -1,15 +1,15 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "good-bad-ugly",
-  "description": "Tiered multi-agent orchestration for Claude Code. Three gunslingers, three model tiers.",
+  "name": "inception",
+  "description": "Layered multi-agent orchestration for Claude Code. One Architect, one Forger, one Point Man — each a level deeper, nothing real until the totem falls.",
   "owner": {
     "name": "XyndoX",
     "url": "https://github.com/XyndoX"
   },
   "plugins": [
     {
-      "name": "good-bad-ugly",
-      "description": "The Good plans and verifies, The Bad handles work needing taste, The Ugly does the grunt work — in parallel, with fenced scopes.",
+      "name": "inception",
+      "description": "The Architect designs the levels and verifies, The Forger handles work needing judgment, The Point Man executes the fully specified — in parallel, one level down each, with fenced scopes.",
       "source": "./",
       "category": "productivity"
     }

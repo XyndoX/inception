@@ -1,17 +1,18 @@
 {
-  "name": "good-bad-ugly",
-  "version": "1.1.1",
-  "description": "The Good, the Bad and the Ugly — tiered multi-agent orchestration for Claude Code. The Good (brain) plans and verifies, the Bad (judgment executor) handles work needing taste, the Ugly (mechanical executor) does the grunt work — in parallel herdr panes with fenced scopes.",
+  "name": "inception",
+  "version": "2.0.0",
+  "description": "Inception — layered multi-agent orchestration for Claude Code. You are The Architect: you design the levels and never go down yourself. The Forger (strong model) takes the work that needs judgment, The Point Man (fast model) executes what is fully specified — each one level down in its own herdr pane, fenced so projections stay calm. Nothing comes topside until your own totem falls.",
   "author": {
     "name": "XyndoX"
   },
-  "homepage": "https://github.com/XyndoX/good-bad-ugly",
+  "homepage": "https://github.com/XyndoX/inception",
   "license": "MIT",
   "keywords": [
     "orchestration",
     "multi-agent",
     "workflow",
     "parallel",
-    "delegation"
+    "delegation",
+    "inception"
   ]
 }

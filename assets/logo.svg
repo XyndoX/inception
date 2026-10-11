@@ -1,38 +1,44 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="good-bad-ugly logo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="inception logo — a spinning totem over nested dream levels">
   <defs>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2a1d12"/>
-      <stop offset="1" stop-color="#0d0a07"/>
+    <linearGradient id="deep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#132641"/>
+      <stop offset="1" stop-color="#050a14"/>
     </linearGradient>
-    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#f6c359" stop-opacity="0.95"/>
-      <stop offset="0.55" stop-color="#e08a2e" stop-opacity="0.45"/>
-      <stop offset="1" stop-color="#e08a2e" stop-opacity="0"/>
+    <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1d38a"/>
+      <stop offset="0.5" stop-color="#c9a35a"/>
+      <stop offset="1" stop-color="#8a6a2e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#c9a35a" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#c9a35a" stop-opacity="0"/>
     </radialGradient>
-    <!-- gunslinger silhouette, feet at origin (0,0), body extends upward -->
-    <g id="slinger">
-      <rect x="-40" y="-150" width="34" height="150" rx="6"/>
-      <rect x="6"   y="-150" width="34" height="150" rx="6"/>
-      <ellipse cx="-23" cy="-4" rx="26" ry="12"/>
-      <ellipse cx="23"  cy="-4" rx="26" ry="12"/>
-      <polygon points="-56,-150 56,-150 42,-236 -42,-236"/>
-      <rect x="-14" y="-258" width="28" height="24" rx="6"/>
-      <ellipse cx="0" cy="-258" rx="55" ry="12"/>
-      <rect x="-27" y="-292" width="54" height="36" rx="10"/>
-    </g>
   </defs>
 
-  <rect width="512" height="512" rx="96" fill="url(#sky)"/>
-  <circle cx="256" cy="250" r="205" fill="url(#sunGlow)"/>
-  <circle cx="256" cy="250" r="96" fill="#f2b43f"/>
+  <rect width="512" height="512" rx="96" fill="url(#deep)"/>
 
-  <!-- ground shadow -->
-  <ellipse cx="256" cy="470" rx="200" ry="20" fill="#000" opacity="0.35"/>
+  <!-- dream levels: L0 outermost, L1, L2 — each one deeper and dimmer -->
+  <g fill="none" stroke="#7f9fd1" stroke-width="3">
+    <rect x="64"  y="64"  width="384" height="384" rx="64" opacity="0.95"/>
+    <rect x="112" y="112" width="288" height="288" rx="48" opacity="0.55"/>
+    <rect x="160" y="160" width="192" height="192" rx="34" opacity="0.28"/>
+  </g>
+  <g fill="#7f9fd1" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" font-weight="700">
+    <text x="84"  y="98"  opacity="0.95">L0</text>
+    <text x="132" y="146" opacity="0.6">L1</text>
+    <text x="180" y="194" opacity="0.35">L2</text>
+  </g>
 
-  <!-- The Ugly (right, shortest, dusty amber) -->
-  <use href="#slinger" transform="translate(366,470) scale(0.78)" fill="#b06a3a"/>
-  <!-- The Bad (center, steel) -->
-  <use href="#slinger" transform="translate(256,472) scale(0.9)" fill="#7c8b9a"/>
-  <!-- The Good (left, tallest, gold) -->
-  <use href="#slinger" transform="translate(150,470) scale(1)" fill="#e0a93b"/>
+  <!-- the totem -->
+  <circle cx="256" cy="300" r="120" fill="url(#glow)"/>
+  <ellipse cx="256" cy="392" rx="54" ry="7" fill="#000" opacity="0.45"/>
+  <g transform="rotate(-11 256 330)">
+    <polygon points="256,390 200,300 312,300" fill="url(#brass)"/>
+    <ellipse cx="256" cy="300" rx="56" ry="14" fill="#f1d38a"/>
+    <ellipse cx="256" cy="300" rx="56" ry="14" fill="none" stroke="#8a6a2e" stroke-width="2"/>
+    <rect x="248" y="226" width="16" height="76" rx="5" fill="url(#brass)"/>
+    <circle cx="256" cy="222" r="11" fill="#f1d38a" stroke="#8a6a2e" stroke-width="2"/>
+  </g>
+  <!-- spin arc -->
+  <path d="M 190 262 A 70 24 0 0 1 322 262" fill="none" stroke="#f1d38a" stroke-width="3" stroke-linecap="round" opacity="0.6" stroke-dasharray="6 9"/>
 </svg>

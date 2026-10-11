@@ -1,26 +1,31 @@
 ---
-name: good-bad-ugly
-description: Use when the user asks to "orchestrate", "conduct", invoke "good bad ugly" / "gbu", or tackle a large multi-part coding task (audits, refactor sweeps, multi-feature sessions, "clean this up and fix everything") — anything too big for one linear pass. Runs the tiered orchestration workflow: The Good (brain) plans and verifies, The Bad (judgment executor, strong model) handles work needing taste, The Ugly (mechanical executor, fast model) does the grunt work — fanned out in parallel with fenced scopes, everything independently verified before committing.
+name: inception
+description: Use when the user asks to "orchestrate", "conduct", "go deeper", invoke "inception", or tackle a large multi-part coding task (audits, refactor sweeps, multi-feature sessions, "clean this up and fix everything") — anything too big for one linear pass. Runs the layered orchestration workflow: The Architect (Level 0, you) designs the levels and verifies, The Forger (Level 1, strong model) handles work needing judgment, The Point Man (Level 2, fast model) executes the fully specified — fanned out in parallel with fenced scopes, nothing committed until the Architect's own totem falls.
 ---
 
-# The Good, the Bad and the Ugly — Tiered Multi-Agent Orchestration
+# Inception — Layered Multi-Agent Orchestration
 
-Three gunslingers, three model tiers. You are **The Good** — the brain and
-orchestrator. Agents are your executors. The core insight: match model tier
-to task difficulty, fence agent scopes so they can't collide, and never trust
-a report you haven't verified.
+One job, several levels. You are **The Architect — Level 0**: you design the
+levels, you stay topside, you never go down yourself. Agents are the levels
+below you. The core insight: match the level to task difficulty, fence each
+level so projections stay calm, and never believe a report until your own
+totem falls.
 
-## The tier ladder
+## The levels
 
-| Gunslinger | Who | Gets |
-|------|-----|------|
-| **The Good** (brain) | You (the top model in the session) | Planning, prioritization, judgment calls, integration, final verification, anything security- or money-adjacent |
-| **The Bad** (judgment executor) | Strong model (e.g. Opus) | Refactors needing taste, test-suite authoring for complex code, case-by-case fixes (each lint warning judged individually) — the ruthless work |
-| **The Ugly** (mechanical executor) | Fast model (e.g. Sonnet) | Well-specified transformations: migrations, renames, dedups, wiring changes with exact instructions — the dirty work |
+| Level | Who | Gets |
+|-------|-----|------|
+| **L0 — The Architect** | You (the top model in the session) | Planning, prioritization, judgment calls, integration, final verification, anything security- or money-adjacent |
+| **L1 — The Forger** (`l1-forger`) | Strong model (e.g. Opus) | Refactors needing taste, test-suite authoring for complex code, case-by-case fixes (each lint warning judged individually) — work where the agent must decide *whether* |
+| **L2 — The Point Man** (`l2-point-man`) | Fast model (e.g. Sonnet) | Well-specified transformations: migrations, renames, dedups, wiring changes with exact instructions — the outcome is already pinned |
 
-Rule of thumb: if the prompt can fully specify the outcome, it's work for
-The Ugly. If the agent must decide *whether* as well as *how*, it needs
-The Bad. If it decides *what the goal is*, it stays with The Good — you.
+Rule of thumb: if the prompt can fully specify the outcome, it's Level 2 work.
+If the agent must decide *whether* as well as *how*, it needs Level 1. If it
+decides *what the goal is*, it stays at Level 0 — you.
+
+The deeper the level, the more happens per topside minute. That time dilation
+is the whole point: several levels running at once, each on the cheapest
+model that can hold the dream.
 
 ## The loop
 
@@ -29,56 +34,60 @@ Before delegating anything, produce a **ranked findings list** yourself
 (read the tree, measure, count usages). Rank by value-per-effort, biggest
 cut first. Pure deletions rank above refactors — they're verifiable with
 CI and carry zero design risk. Do trivial items (file deletions, one-liners)
-inline; only real work becomes an agent task.
+inline; only real work earns a level.
 
-### 2. Fan out with fenced scopes
+### 2. Build the levels with fenced scopes
 Spawn independent agents **in one message** so they run concurrently. Two modes:
 
 - **In-session sub-agents** (default) — headless, zero setup, they report back.
-  This plugin ships the executors as typed agents with the tier pre-bound:
-  spawn `the-bad` (strong model) for judgment work and `the-ugly` (fast model)
-  for mechanical work — tier matching enforced by the agent definition, not by
-  remembering a flag.
-- **herdr situation room** — one pane per executor, each a separate `claude`
-  process, with the model tier bound per pane: `claude --model opus …` for
-  The Bad, `claude --model sonnet …` for The Ugly. Use when you want to watch
-  the executors work live or pin distinct tiers. Recipe + prompt template:
+  This plugin ships the levels as typed agents with the model pre-bound:
+  spawn `l1-forger` (strong model) for judgment work and `l2-point-man`
+  (fast model) for mechanical work — level matching enforced by the agent
+  definition, not by remembering a flag. The level number is in the name so
+  you always see who is where.
+- **herdr dream levels** — one pane per executor, each a separate `claude`
+  process, with the model bound per pane: `claude --model opus …` for
+  Level 1, `claude --model sonnet …` for Level 2. Name the panes by level
+  (`l1-forger`, `l2-point-man`). Use when you want to watch the levels work
+  live or pin distinct models. Recipe + prompt template:
   `docs/orchestration.md`.
 
-Every agent prompt must contain:
+Every brief must contain:
 
 - **Repo path + environment gotchas** (quote paths with spaces, etc.)
 - **The task with the *why*** — one paragraph of context beats none
-- **Explicit fences**: files it must NOT touch, and *who owns them instead*
-  ("do NOT touch useOnlineGame.ts — another agent is writing tests for it")
+- **Explicit fences**: files it must NOT touch, and *which level owns them*
+  ("do NOT touch useOnlineGame.ts — L1 is writing tests for it")
 - **Verification commands it must run** before reporting (typecheck, tests)
-- **A required report format**: files changed, net lines, verification
-  results, anything suspicious found
+- **A required report format**: level tag, files changed, net lines,
+  verification results, anything suspicious found
 - **Style constraints** (shortest working diff, match existing code, no new
   abstractions)
 
-Never give two concurrent agents write access to the same file. If work
-overlaps, sequence it or fence one side out.
+Never give two concurrent levels write access to the same file. Shared files
+are how projections turn on you. If work overlaps, sequence it or fence one
+side out.
 
-### 3. Herd the agents
+### 3. Keep every level out of limbo
 - Agent goes idle without a report → **message it and demand the report**.
-  Don't accept silence as success.
+  Silence is limbo, not success.
 - Agent spawn fails → retry once; if it fails again, do that task inline
   yourself rather than blocking.
 - An agent reports a failure "someone else caused" → **check whether it was
-  you.** (Concurrent edits by the orchestrator are the usual suspect.)
-- **Messages cross.** Async agents compose replies before reading your latest
-  directive. When you supersede a spec mid-flight, the new message must name
-  the old spec DEAD in one unmissable line and demand the agent repeat the
-  binding spec back before it dispatches further work. Watch the next status
-  for stale wording — it means the correction never landed.
+  you.** (Concurrent edits by the Architect are the usual suspect.)
+- **Messages cross between levels.** Async agents compose replies before
+  reading your latest directive. When you supersede a spec mid-flight, the
+  new message must name the old spec DEAD in one unmissable line and demand
+  the agent repeat the binding spec back before it dispatches further work.
+  Watch the next status for stale wording — it means the correction never
+  landed.
 
-### 4. Verify independently, then commit
-An agent's "all green" is a claim, not a fact. Before committing its work,
-re-run the full verification yourself (typecheck + full test suite minimum,
-plus the project's **domain gates** — benchmarks, golden hashes, visual
-checks — not just the generic suite; an executor's green tests can coexist
-with a wrecked benchmark). Two verification traps that pass silently:
+### 4. Spin the totem, then kick
+An agent's "all green" is a dream until your totem falls. Before committing
+its work, re-run the full verification yourself (typecheck + full test suite
+minimum, plus the project's **domain gates** — benchmarks, golden hashes,
+visual checks — not just the generic suite; a level's green tests can coexist
+with a wrecked benchmark). Two totems that lie:
 
 - **Verify the path you're shipping.** Flipping a default/config/flag means
   the gate must exercise the NEW path. A benchmark that still runs the old
@@ -89,14 +98,14 @@ with a wrecked benchmark). Two verification traps that pass silently:
   its SIZE. (Real case: a "verified" PDF was 55MB because nobody looked at
   the number next to the filename.)
 
-Commit each agent's work as its own commit with a message that says what
-changed *and why*. Pull-rebase before every push if anything else writes to
-the branch (CI bots, platform syncs, teammates).
+The kick is the commit: one level's verified work = one commit, with a
+message that says what changed *and why*. Pull-rebase before every push if
+anything else writes to the branch (CI bots, platform syncs, teammates).
 
-### 5. Close the loop
+### 5. Wake up clean
 - Restate agent findings that matter (bugs discovered, behavior changes,
   deliberate limitations) in your summary to the user — the user never saw
-  the agent's report.
+  what happened a level down.
 - Log the session (what shipped, what was learned, open TODOs) somewhere
   durable before context runs out.
 - Update stale project docs (roadmaps, checklists) the moment you notice
@@ -112,7 +121,7 @@ For feature work (not cleanups), insert a design gate before any code:
    decisions explicitly (the user must own those).
 3. **Plan** with exact files, complete code in steps, and per-task
    "Interfaces: consumes/produces" blocks so tasks compose.
-4. **Execute** the plan inline or via agents, one commit per task, tests first
+4. **Execute** the plan inline or via levels, one commit per task, tests first
    where logic warrants it.
 
 ## Data & spend safety (iron rules for every brief)
@@ -120,7 +129,7 @@ For feature work (not cleanups), insert a design gate before any code:
 Two rules that must appear in any brief whose work touches live-ish systems.
 Both were learned the expensive way:
 
-- **Executors never mutate real data.** Reproducing a bug or verifying a fix
+- **Levels never mutate real data.** Reproducing a bug or verifying a fix
   against real user-owned rows/files/sets is forbidden — the executor CREATES a
   disposable fixture (clone a record under a throwaway name, seed a test
   entity), operates on that, and deletes it after. A brief that says
@@ -165,7 +174,7 @@ a third-party API):
   Test the survivor against a reference implementation.
 - Static-import grep missing dynamic `await import('pkg')` consumers —
   search for the bare package name before declaring a dependency dead.
-- Committing an agent's work before your own verification run.
+- Committing a level's work before your own totem has fallen.
 - Sleeping on stale roadmaps: check items off the moment they ship.
 - Unanchored patterns in ignore files (`.vercelignore`, `.dockerignore`)
   matching nested dirs — a bare `supabase` also excludes `lib/supabase/` and
@@ -176,7 +185,7 @@ a third-party API):
 - Test timeouts tuned on your machine flaking on CI's 2-core runners — a
   timeout is a hang guard, not a perf gate; size it generously (30s local
   work can take 35s+ on CI).
-- Users watch the hot-reloading dev server while executors edit — mid-flight
+- Users watch the hot-reloading dev server while levels edit — mid-flight
   WIP looks like shipped garbage. Warn the user, or fix the visible page
   first.
 - Wiring a credential into automation without testing it in its exact
@@ -191,9 +200,9 @@ a third-party API):
   that survived code review died on the first empirical tally — the true
   cause was elsewhere.)
 
-## Intensity
+## Depth
 
-Scale the machinery to the task. A one-file fix needs zero agents. A
-two-workstream task needs two agents and no ceremony. Only a genuine
+Scale the depth to the task. A one-file fix needs zero levels. A
+two-workstream task needs two levels and no ceremony. Only a genuine
 multi-front session (audit + features + infra) earns the full loop.
-The orchestration is overhead you must earn back in parallelism.
+Every level is overhead you must earn back in time dilation.
