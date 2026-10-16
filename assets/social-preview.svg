@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#132641"/>
+      <stop offset="1" stop-color="#050a14"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1d38a"/>
+      <stop offset="1" stop-color="#c9a35a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <svg x="110" y="150" width="340" height="340" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="deep" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#132641"/>
+      <stop offset="1" stop-color="#050a14"/>
+    </linearGradient>
+    <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f1d38a"/>
+      <stop offset="0.5" stop-color="#c9a35a"/>
+      <stop offset="1" stop-color="#8a6a2e"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#c9a35a" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#c9a35a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="96" fill="url(#deep)"/>
+
+  <!-- dream levels: L0 outermost, L1, L2 — each one deeper and dimmer -->
+  <g fill="none" stroke="#7f9fd1" stroke-width="3">
+    <rect x="64"  y="64"  width="384" height="384" rx="64" opacity="0.95"/>
+    <rect x="112" y="112" width="288" height="288" rx="48" opacity="0.55"/>
+    <rect x="160" y="160" width="192" height="192" rx="34" opacity="0.28"/>
+  </g>
+  <g fill="#7f9fd1" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" font-size="20" font-weight="700">
+    <text x="84"  y="98"  opacity="0.95">L0</text>
+    <text x="132" y="146" opacity="0.6">L1</text>
+    <text x="180" y="194" opacity="0.35">L2</text>
+  </g>
+
+  <!-- the totem -->
+  <circle cx="256" cy="300" r="120" fill="url(#glow)"/>
+  <ellipse cx="256" cy="392" rx="54" ry="7" fill="#000" opacity="0.45"/>
+  <g transform="rotate(-11 256 330)">
+    <polygon points="256,390 200,300 312,300" fill="url(#brass)"/>
+    <ellipse cx="256" cy="300" rx="56" ry="14" fill="#f1d38a"/>
+    <ellipse cx="256" cy="300" rx="56" ry="14" fill="none" stroke="#8a6a2e" stroke-width="2"/>
+    <rect x="248" y="226" width="16" height="76" rx="5" fill="url(#brass)"/>
+    <circle cx="256" cy="222" r="11" fill="#f1d38a" stroke="#8a6a2e" stroke-width="2"/>
+  </g>
+  <!-- spin arc -->
+  <path d="M 190 262 A 70 24 0 0 1 322 262" fill="none" stroke="#f1d38a" stroke-width="3" stroke-linecap="round" opacity="0.6" stroke-dasharray="6 9"/>
+</svg>
+  <g font-family="Helvetica Neue, Helvetica, Arial, sans-serif">
+    <text x="520" y="290" font-size="112" font-weight="700" fill="url(#title)" letter-spacing="-2">inception</text>
+    <text x="524" y="360" font-size="38" fill="#e8edf6">One job, several levels.</text>
+    <text x="524" y="408" font-size="38" fill="#c9a35a" font-style="italic">You are The Architect.</text>
+    <text x="524" y="470" font-size="24" fill="#7f9fd1" font-family="Menlo, monospace">layered multi-agent orchestration for Claude Code</text>
+  </g>
+</svg>

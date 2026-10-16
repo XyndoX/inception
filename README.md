@@ -11,6 +11,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Claude%20Code-plugin-0b1526?style=flat-square" alt="Claude Code plugin">
   <img src="https://img.shields.io/badge/levels-L0%20architect%20·%20L1%20forger%20·%20L2%20point%20man-c9a35a?style=flat-square" alt="Three levels">
+  <img src="https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FXyndoX%2Finception%2Fmaster%2F.claude-plugin%2Fplugin.json&query=%24.version&prefix=v&label=version&style=flat-square&color=c9a35a" alt="Version">
   <img src="https://img.shields.io/github/license/XyndoX/inception?style=flat-square&color=0b1526" alt="MIT license">
 </p>
 
@@ -21,12 +22,31 @@ into a **layered multi-agent orchestrator**. You stay topside as the Architect.
 The work goes one level down to the right model, runs in parallel, and nothing
 comes back up until your own totem has fallen.
 
-Born from a real session that shipped in one sitting: a whole-repo
-over-engineering audit (−5,600 lines, −23 dependencies), a production security
-fix, two game features, a test suite for the most fragile hook, 31 lint-warning
-judgment calls, and a full cosmetics economy — by running the right work on the
-right level, at the same time, with independent verification before every
-commit.
+> **Born from a real session that shipped in one sitting:**
+> **−5,600 lines · −23 dependencies** from a whole-repo over-engineering audit,
+> plus a production security fix, two game features, a test suite for the most
+> fragile hook, 31 lint-warning judgment calls, and a full cosmetics economy —
+> by running the right work on the right level, at the same time, with
+> independent verification before every commit.
+
+## Quick start
+
+In Claude Code:
+
+```
+/plugin marketplace add XyndoX/inception
+/plugin install inception@inception
+```
+
+Then hand it a big multi-part task:
+
+```
+/inception tackle the ranked findings from this audit
+```
+
+Not sure what to delegate yet? Run `/architect` first — it produces a ranked
+findings list with a level per item, without editing anything. More options in
+[Install](#install).
 
 ## The idea in one picture
 
@@ -165,6 +185,8 @@ discipline matters more here than anywhere, because now the projections are
 real processes, not one model's sequential edits.
 
 ## Install
+
+From the marketplace (as in [Quick start](#quick-start)):
 
 ```
 /plugin marketplace add XyndoX/inception
