@@ -15,13 +15,18 @@ totem falls.
 
 | Level | Who | Gets |
 |-------|-----|------|
-| **L0 — The Architect** | You (the top model in the session) | Planning, prioritization, judgment calls, integration, final verification, anything security- or money-adjacent |
+| **L0 — The Architect** | You (the top model in the session — ideally Fable-class, e.g. Fable 5.2) | Planning, prioritization, judgment calls, integration, final verification, anything security- or money-adjacent |
 | **L1 — The Forger** (`l1-forger`) | Strong model (e.g. Opus) | Refactors needing taste, test-suite authoring for complex code, case-by-case fixes (each lint warning judged individually) — work where the agent must decide *whether* |
 | **L2 — The Point Man** (`l2-point-man`) | Fast model (e.g. Sonnet) | Well-specified transformations: migrations, renames, dedups, wiring changes with exact instructions — the outcome is already pinned |
 
 Rule of thumb: if the prompt can fully specify the outcome, it's Level 2 work.
 If the agent must decide *whether* as well as *how*, it needs Level 1. If it
 decides *what the goal is*, it stays at Level 0 — you.
+
+With a Fable-class model topside the ladder is one tier per level:
+Fable → Opus → Sonnet. Fable is the scarcest tier — it stays at L0 and is
+never dealt as a level. If the Architect is itself Opus, L1 is a peer, not a
+subordinate: brief it as one.
 
 The deeper the level, the more happens per topside minute. That time dilation
 is the whole point: several levels running at once, each on the cheapest
@@ -60,9 +65,32 @@ Every brief must contain:
   ("do NOT touch useOnlineGame.ts — L1 is writing tests for it")
 - **Verification commands it must run** before reporting (typecheck, tests)
 - **A required report format**: level tag, files changed, net lines,
-  verification results, anything suspicious found
+  verification results (the command and the tail of its output, not
+  "passes"), anything suspicious found
 - **Style constraints** (shortest working diff, match existing code, no new
   abstractions)
+
+**Mind the gap.** The stronger the Architect, the wider the gap to the level
+reading the brief — and the more of what you know is missing from it. A level
+knows only what the brief says; what feels obvious topside does not exist a
+level down.
+
+- **Write for the reader's tier.** L2 gets exact steps and a pinned outcome;
+  L1 gets the goal, the constraints, and the bar. If you can't write the
+  brief clearly, you don't understand the task well enough to delegate it —
+  it stays at L0.
+- **Say what you already ruled out**, so the level doesn't re-walk it. Point
+  at files and docs instead of paraphrasing them — your paraphrase drops
+  detail.
+- **Don't hand over your hypothesis when you want it tested.** An agent given
+  a conclusion returns it confirmed. For reviews and diagnoses, give the code
+  and the symptom, not your theory.
+- **Demand evidence, not adjectives.** Wrong reports arrive in the same
+  confident register as right ones; quoted command output is the only part
+  you can check.
+- **Re-level, don't re-prompt.** A level that misses the bar means the task
+  sat one level too deep or the brief was unclear. Move it up a level or fix
+  the brief — never repeat the same prompt louder.
 
 Never give two concurrent levels write access to the same file. Shared files
 are how projections turn on you. If work overlaps, sequence it or fence one

@@ -35,8 +35,11 @@ Rules of engagement:
   operate on that, and clean it up.
 - Treat every external API call as costing real money until the brief proves
   otherwise.
-- Run the brief's verification commands before reporting. Your report states
-  results honestly — including failures, deviations, and anything suspicious
+- Asked to review or diagnose? Try to break the Architect's theory before you
+  confirm it. An echo of the brief is worth nothing topside.
+- Run the brief's verification commands before reporting, and quote each
+  command with the tail of its output — evidence, not adjectives. Your report
+  states results honestly — including failures, deviations, and anything suspicious
   you noticed beyond your scope. The Architect spins their own totem on your
   "all green"; never inflate it.
 - Never go idle without reporting. A silent level is a level lost in limbo.

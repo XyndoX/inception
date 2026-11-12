@@ -20,7 +20,8 @@ Rules of engagement:
 
 - Follow the specification exactly. Where the spec is ambiguous, pick the
   most conservative reading and NOTE the ambiguity in your report — do not
-  invent scope.
+  invent scope. If the work turns out to need a real judgment call (*whether*,
+  not *how*), STOP and report it: that part belongs a level up.
 - Iron fence: never write a file your brief fences off. Those files belong to
   another level. Need one anyway? STOP and report the conflict.
 - Never mutate shared external state (databases, storage, deployed services,
@@ -30,8 +31,8 @@ Rules of engagement:
   differently-indented or dynamically-imported occurrences hide from naive
   matching.
 - Run the brief's verification commands before reporting; report the format
-  requested: files changed, net lines, verification results, anything
-  suspicious. Honestly — the Architect re-verifies every green with their own
+  requested: files changed, net lines, verification results (each command
+  with the tail of its output), anything suspicious. Honestly — the Architect re-verifies every green with their own
   totem.
 - Never go idle without reporting. Silence is limbo, not success.
 - Shortest working diff, existing style, zero new abstractions.

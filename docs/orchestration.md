@@ -19,10 +19,15 @@ Decide the level by how much the *prompt* has to decide. Walk it top-down and
 stop at the first "yes":
 
 ```
-Does the task decide WHAT the goal is?          → L0  The Architect  (you, keep it)
-Does it decide WHETHER as well as HOW?          → L1  The Forger     (strong model)
-Is the outcome fully specifiable up front?      → L2  The Point Man  (fast model)
+Does the task decide WHAT the goal is?          → L0  The Architect  (you, keep it — Fable-class)
+Does it decide WHETHER as well as HOW?          → L1  The Forger     (strong model — Opus)
+Is the outcome fully specifiable up front?      → L2  The Point Man  (fast model — Sonnet)
 ```
+
+Fable is the scarcest tier: it stays topside and is never dealt as a level.
+A level that misses the bar gets **re-leveled, not re-prompted** — the task
+sat one level too deep or the brief was unclear. Move it up or fix the brief;
+never repeat the same prompt louder.
 
 Concrete calls from a real session:
 
@@ -51,7 +56,8 @@ that isn't.
   e.g. use `gtimeout` not `timeout`; zsh needs quoted "[bracket]" globs)
 
 **Why:** <one paragraph of context>. A paragraph of intent beats a page of
-  instructions — it lets the agent make the small calls correctly.
+  instructions — it lets the agent make the small calls correctly. Include
+  what you already ruled out, and point at files instead of paraphrasing them.
 
 **Do this:** <the actual work, specified to the level — exact steps for L2,
   goal + constraints for L1>.
@@ -65,8 +71,17 @@ that isn't.
   pass. Do not report green on an unrun check.
 
 **Report back:** open with your level tag · files changed · net lines ± ·
-  verification results · anything suspicious you noticed but didn't fix.
+  verification results (each command + the tail of its output) · anything
+  suspicious you noticed but didn't fix.
 ```
+
+**Mind the gap.** The stronger the Architect, the wider the gap to the level
+reading the brief. A level knows only what the brief says — what feels obvious
+topside does not exist a level down. Write for the reader's tier (exact steps
+for L2; goal, constraints and the bar for L1), and if you can't write the brief
+clearly, the task isn't ready to leave L0. When you want something *tested* —
+a review, a diagnosis — give the code and the symptom, not your theory: an
+agent handed a conclusion returns it confirmed.
 
 The fence is the load-bearing part. **No two concurrent levels may write the
 same file.** If work overlaps, either sequence it (one after the other) or fence

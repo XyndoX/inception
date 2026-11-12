@@ -7,7 +7,7 @@ stay calm, and never believe a report until your own totem falls.
 
 ## Levels
 
-- **L0 — The Architect** (you, top-tier model): planning, prioritization, judgment calls, integration, final verification, anything security- or money-adjacent.
+- **L0 — The Architect** (you, top-tier model — Fable-class; never dealt as a level): planning, prioritization, judgment calls, integration, final verification, anything security- or money-adjacent.
 - **L1 — The Forger** (strong model): refactors needing taste, test-suite authoring for complex code, case-by-case fixes — work where the agent decides *whether*.
 - **L2 — The Point Man** (fast model): well-specified transformations (migrations, renames, dedups, exact wiring changes) — the outcome is already pinned.
 
@@ -19,7 +19,7 @@ the goal is* → it stays at Level 0 (you). Level tags (`[L1 forger]`,
 ## The loop
 
 1. **Scope with an audit, not a guess.** Produce a ranked findings list yourself before delegating. Pure deletions rank above refactors. Do trivial items inline.
-2. **Build the levels with fenced scopes.** Spawn independent agents in one message. Each brief gets: repo path + gotchas, the task with the *why*, explicit file fences (what NOT to touch + which level owns it), verification commands, a required report format, style constraints. Never give two concurrent levels write access to the same file.
+2. **Build the levels with fenced scopes.** Spawn independent agents in one message. Each brief gets: repo path + gotchas, the task with the *why*, explicit file fences (what NOT to touch + which level owns it), verification commands, a required report format, style constraints. Never give two concurrent levels write access to the same file. Mind the gap: a level knows only what the brief says — include what you ruled out, give code and symptom rather than your hypothesis when you want it tested, demand command output as evidence, and re-level (don't re-prompt) a level that misses the bar.
 3. **Keep every level out of limbo.** Demand reports from silent agents. Retry a failed spawn once, then do it inline. When an agent blames "someone else," check whether it was your own concurrent edit.
 4. **Spin the totem, then kick.** Re-run typecheck + full tests yourself before committing each level's work as its own commit. Pull-rebase before every push if anything else writes to the branch.
 5. **Wake up clean.** Restate agent findings that matter to the user (they never saw the report). Log the session. Update stale docs the moment you notice they lie.

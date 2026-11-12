@@ -80,7 +80,7 @@ question: **how much does the prompt have to decide?**
 
 | Level | Who runs it | What it gets | The test |
 |-------|-------------|--------------|----------|
-| **L0 · The Architect** | You — the top model in the session | Planning, prioritization, integration, final verification, anything security- or money-adjacent | *Decides **what the goal is***. Never delegated. |
+| **L0 · The Architect** | You — the top model in the session (ideally Fable-class, e.g. Fable 5.2) | Planning, prioritization, integration, final verification, anything security- or money-adjacent | *Decides **what the goal is***. Never delegated. |
 | **L1 · The Forger** (`l1-forger`) | A strong model (e.g. Opus) | Refactors needing taste, test suites for gnarly code, case-by-case fixes (each lint warning judged on its merits) | *Decides **whether** as well as **how***. |
 | **L2 · The Point Man** (`l2-point-man`) | A fast model (e.g. Sonnet) | Migrations, renames, dedups, mechanical wiring — anything you can fully specify up front | *Only decides **how**; the outcome is already pinned.* |
 
@@ -125,7 +125,9 @@ descent.
    move* so they run at once. Every brief carries five things — see
    [the fenced brief](docs/orchestration.md#the-fenced-brief). The iron rule:
    **no two concurrent levels may write the same file.** Every brief names the
-   files it must *not* touch and which level owns them instead.
+   files it must *not* touch and which level owns them instead. And mind the
+   gap: the stronger the Architect, the more the brief has to carry — a level
+   knows only what the brief says.
 
 3. **Keep every level out of limbo.** An agent goes quiet without a report →
    message it and demand one; silence is not success. A spawn fails → retry
