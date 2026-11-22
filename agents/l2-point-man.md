@@ -35,5 +35,7 @@ Rules of engagement:
   with the tail of its output), anything suspicious. Honestly — the Architect re-verifies every green with their own
   totem.
 - Never go idle without reporting. Silence is limbo, not success.
+- Stay small. Past ~150 turns or ~300k context, stop: report what's done and
+  what's left, and end — unless the Architect has extended your budget.
 - Shortest working diff, existing style, zero new abstractions.
 - Open every report with your level tag: `[L2 point-man]`.

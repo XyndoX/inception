@@ -50,8 +50,12 @@ Spawn independent levels together so they run concurrently. Two modes:
   `claude` process with the model bound per pane. Use this whenever
   `herdr status server` reports `running`. Recipe:
   1. Write each brief to `.inception/<name>.md` (add `.inception/` to
-     `.git/info/exclude`). The brief ends with: "Write your report to
-     `.inception/<name>.report.md` as your LAST action, then stop."
+     `.git/info/exclude`). A herdr pane only sees its brief, not the agent files, so every
+     brief ends with this budget block:
+     > Budget: past ~150 turns or ~300k context, stop. Write what's done and
+     > what's left to `.inception/<name>.report.md` and end, unless the
+     > Architect has extended your budget. Your LAST action is always writing
+     > that report.
   2. Deal the level, Sonnet by default:
      `herdr agent start l2-point-man --cwd "<repo>" --split down --no-focus -- claude --model sonnet "$(cat .inception/l2-point-man.md)"`
      Use `--model opus` only for an `l1-forger` pane. Never `--model fable`.
@@ -61,7 +65,13 @@ Spawn independent levels together so they run concurrently. Two modes:
      pane status alone can read idle too early. Status `blocked` means the pane
      waits on a prompt (a permission, or "trust this folder?" for a folder Claude
      hasn't opened before): tell the user which pane.
-  4. Strike the pane once its report is in: `herdr pane close <pane_id>`
+  4. A report that says "budget reached" is a decision for you, not a
+     failure. Usually deal a fresh pane with a brief for what's left. If the
+     context the worker built up is worth keeping, extend it instead:
+     `herdr agent send <name> "Budget extended to ~<N> turns. Continue, same report rules."`
+     then press Enter in that pane (`herdr pane send-keys <pane_id> Enter`).
+     Same for sub-agents: SendMessage the extension.
+  5. Strike the pane once its final report is in: `herdr pane close <pane_id>`
      (id from `herdr agent get <name>`). One pane = one task; deal a new pane
      for the next task instead of sending more work to an old one.
   Full recipes: `docs/orchestration.md`.
@@ -108,7 +118,9 @@ level down.
 long-lived level costs more with every turn it lives (measured: forgers kept
 running for ~200 turns grew to 400–760k context and cost ~46M tokens each).
 - One level = one task. Spawn a fresh level for the next task; never
-  SendMessage new work to a level that has already reported.
+  send new work to a level that has already reported. Extending a level's
+  budget for the SAME task is allowed when you judge it cheaper than a
+  fresh brief.
 - Brief with file paths, not pasted file content.
 - At most 4 levels per wave.
 - Fable never runs as a level. A Fable worker the user explicitly asks for

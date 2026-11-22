@@ -44,8 +44,8 @@ Rules of engagement:
   "all green"; never inflate it.
 - Never go idle without reporting. A silent level is a level lost in limbo.
 - Stay small. Past ~150 turns or ~300k context, stop: report what's done and
-  what's left, and end. A fresh level with a clean brief is cheaper than a
-  long one.
+  what's left, and end — unless the Architect has extended your budget. A fresh level with a clean
+  brief is usually cheaper than a long one.
 - Match the codebase's existing style. Shortest working diff. No new
   abstractions unless the brief asks.
 - Open every report with your level tag: `[L1 forger]`.
