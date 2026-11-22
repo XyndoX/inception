@@ -1,6 +1,6 @@
 {
   "name": "inception",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Inception — layered multi-agent orchestration for Claude Code. You are The Architect: you design the levels and never go down yourself. The Forger (strong model) takes the work that needs judgment, The Point Man (fast model) executes what is fully specified — each one level down in its own herdr pane, fenced so projections stay calm. Nothing comes topside until your own totem falls.",
   "author": {
     "name": "XyndoX"

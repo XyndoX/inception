@@ -59,6 +59,9 @@ Spawn independent levels together so they run concurrently. Two modes:
   2. Deal the level, Sonnet by default:
      `herdr agent start l2-point-man --cwd "<repo>" --split down --no-focus -- claude --model sonnet "$(cat .inception/l2-point-man.md)"`
      Use `--model opus` only for an `l1-forger` pane. Never `--model fable`.
+     Add `--advisor opus` to Sonnet panes so a point-man gets an Opus second
+     opinion at decision points (skip it if the user's settings already set
+     `advisorModel`).
      Number repeats: `l2-point-man-2`, `l1-forger-2`.
   3. Herd: `herdr agent wait <name> --status idle --timeout 1800000`, then read
      `.inception/<name>.report.md`. The report file is the completion signal;
