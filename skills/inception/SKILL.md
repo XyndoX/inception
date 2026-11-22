@@ -44,20 +44,30 @@ CI and carry zero design risk. Do trivial items (file deletions, one-liners)
 inline; only real work earns a level.
 
 ### 2. Build the levels with fenced scopes
-Spawn independent agents **in one message** so they run concurrently. Two modes:
+Spawn independent levels together so they run concurrently. Two modes:
 
-- **In-session sub-agents** (default) — headless, zero setup, they report back.
-  This plugin ships the levels as typed agents with the model pre-bound:
-  spawn `l1-forger` (strong model) for judgment work and `l2-point-man`
-  (fast model) for mechanical work — level matching enforced by the agent
-  definition, not by remembering a flag. The level number is in the name so
-  you always see who is where.
-- **herdr dream levels** — one pane per executor, each a separate `claude`
-  process, with the model bound per pane: `claude --model opus …` for
-  Level 1, `claude --model sonnet …` for Level 2. Name the panes by level
-  (`l1-forger`, `l2-point-man`). Use when you want to watch the levels work
-  live or pin distinct models. Recipe + prompt template:
-  `docs/orchestration.md`.
+- **herdr dream levels** (default) — one herdr pane per level, each its own
+  `claude` process with the model bound per pane. Use this whenever
+  `herdr status server` reports `running`. Recipe:
+  1. Write each brief to `.inception/<name>.md` (add `.inception/` to
+     `.git/info/exclude`). The brief ends with: "Write your report to
+     `.inception/<name>.report.md` as your LAST action, then stop."
+  2. Deal the level, Sonnet by default:
+     `herdr agent start l2-point-man --cwd "<repo>" --split down --no-focus -- claude --model sonnet "$(cat .inception/l2-point-man.md)"`
+     Use `--model opus` only for an `l1-forger` pane. Never `--model fable`.
+     Number repeats: `l2-point-man-2`, `l1-forger-2`.
+  3. Herd: `herdr agent wait <name> --status idle --timeout 1800000`, then read
+     `.inception/<name>.report.md`. The report file is the completion signal;
+     pane status alone can read idle too early. Status `blocked` means the pane
+     waits on a prompt (a permission, or "trust this folder?" for a folder Claude
+     hasn't opened before): tell the user which pane.
+  4. Strike the pane once its report is in: `herdr pane close <pane_id>`
+     (id from `herdr agent get <name>`). One pane = one task; deal a new pane
+     for the next task instead of sending more work to an old one.
+  Full recipes: `docs/orchestration.md`.
+- **In-session sub-agents** (fallback when herdr isn't running) — the typed
+  agents `l2-point-man` (Sonnet) and `l1-forger` (Opus) with the model
+  pre-bound by the agent definition.
 
 Every brief must contain:
 
