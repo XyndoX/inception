@@ -19,7 +19,9 @@ totem falls.
 | **L1 — The Forger** (`l1-forger`) | Strong model (e.g. Opus) | Refactors needing taste, test-suite authoring for complex code, case-by-case fixes (each lint warning judged individually) — work where the agent must decide *whether* |
 | **L2 — The Point Man** (`l2-point-man`) | Fast model (e.g. Sonnet) | Well-specified transformations: migrations, renames, dedups, wiring changes with exact instructions — the outcome is already pinned |
 
-Rule of thumb: if the prompt can fully specify the outcome, it's Level 2 work.
+**Default to Level 2.** Start every task at `l2-point-man` (Sonnet); raise it to
+`l1-forger` only when the brief truly can't pin the outcome. Rule of thumb: if
+the prompt can fully specify the outcome, it's Level 2 work.
 If the agent must decide *whether* as well as *how*, it needs Level 1. If it
 decides *what the goal is*, it stays at Level 0 — you.
 
@@ -91,6 +93,16 @@ level down.
 - **Re-level, don't re-prompt.** A level that misses the bar means the task
   sat one level too deep or the brief was unclear. Move it up a level or fix
   the brief — never repeat the same prompt louder.
+
+**Token budget.** Every agent call re-reads the agent's whole context, so a
+long-lived level costs more with every turn it lives (measured: forgers kept
+running for ~200 turns grew to 400–760k context and cost ~46M tokens each).
+- One level = one task. Spawn a fresh level for the next task; never
+  SendMessage new work to a level that has already reported.
+- Brief with file paths, not pasted file content.
+- At most 4 levels per wave.
+- Fable never runs as a level. A Fable worker the user explicitly asks for
+  needs their manual confirmation.
 
 Never give two concurrent levels write access to the same file. Shared files
 are how projections turn on you. If work overlaps, sequence it or fence one
