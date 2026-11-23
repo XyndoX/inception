@@ -77,6 +77,16 @@ Spawn independent levels together so they run concurrently. Two modes:
   5. Strike the pane once its final report is in: `herdr pane close <pane_id>`
      (id from `herdr agent get <name>`). One pane = one task; deal a new pane
      for the next task instead of sending more work to an old one.
+  6. **Other quotas.** If `ext-worker` is on PATH, a level can run outside the
+     Claude quota with the same brief/report files:
+     `ext-worker <lane> <name>` (brief `.inception/<name>.md`). Lanes:
+     `agy-sonnet` / `agy-opus` (Claude on the Google Pro quota, edits in the
+     worktree `.inception/wt/<name>`, branch `ext/<name>`; you merge),
+     `gemini` (screenshots, video, huge context, second-family review; no
+     edits), `hermes` (free NVIDIA model: logs, summaries, drafts; spot-check
+     its numbers), `codex` (scarce: one independent review of a risky diff).
+     Herd them by the report file, not pane status; close the pane after.
+     Prefer `agy-sonnet` for an L2 level when the Claude quota runs tight.
   Full recipes: `docs/orchestration.md`.
 - **In-session sub-agents** (fallback when herdr isn't running) — the typed
   agents `l2-point-man` (Sonnet) and `l1-forger` (Opus) with the model
